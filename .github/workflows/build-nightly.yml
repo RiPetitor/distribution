@@ -172,7 +172,7 @@ jobs:
           echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
 
   build-docker:
-    if: github.event_name != 'schedule' || (github.repository == 'ROCKNIX/distribution' && github.ref_name == 'next')
+    if: github.repository == 'ROCKNIX/distribution'
     name: Docker
     needs: set-envs
     uses: ./.github/workflows/build-docker-image.yml
@@ -180,7 +180,7 @@ jobs:
       OWNER_LC: ${{ needs.set-envs.outputs.OWNER_LC }}
 
   build-devices:
-    if: (github.event_name != 'schedule') || (github.repository == 'ROCKNIX/distribution' && github.ref_name == 'next')
+    if: ${{ !cancelled() && needs.set-envs.result == 'success' && (needs.build-docker.result == 'success' || needs.build-docker.result == 'skipped') }}
     name: Build Devices
     needs:
       - set-envs
@@ -194,7 +194,7 @@ jobs:
     with:
       PROJECT: ${{ matrix.project }}
       DEVICE: ${{ matrix.device }}
-      OWNER_LC: ${{ needs.set-envs.outputs.OWNER_LC }}
+      OWNER_LC: ${{ github.repository == 'ROCKNIX/distribution' && needs.set-envs.outputs.OWNER_LC || 'rocknix' }}
       NIGHTLY: ${{ needs.set-envs.outputs.NIGHTLY }}
       OFFICIAL: ${{ needs.set-envs.outputs.OFFICIAL }}
 
