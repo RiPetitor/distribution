@@ -2,6 +2,9 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright (C) 2023 JELOS (https://github.com/JustEnoughLinuxOS)
 
+# RM66 uses the device tree's PWM fan trips.
+[ "${QUIRK_DEVICE}" = "ELTAY RM66 on ELTAY BB CM4" ] && exit 0
+
 # CPU thermal trips
 echo "83000" > /sys/devices/virtual/thermal/thermal_zone0/trip_point_0_temp
 echo "88000" > /sys/devices/virtual/thermal/thermal_zone0/trip_point_1_temp

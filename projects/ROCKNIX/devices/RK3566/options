@@ -70,7 +70,7 @@
   # Additional Firmware to use ( )
   # Space separated list is supported,
   # e.g. FIRMWARE=""
-    FIRMWARE="extra-firmware"
+    FIRMWARE="extra-firmware ap6256-firmware"
 
   # Additional packages to install
     ADDITIONAL_PACKAGES="libmali inputplumber"

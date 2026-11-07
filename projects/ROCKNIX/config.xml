@@ -94,6 +94,9 @@
       <file>rk3568-anbernic-rg-ds</file>
       <file>rk3568-anbernic-rg-ds-plus</file>
     </Specific>
+    <Eltay_RM66 mkimage_options="dtb,extlinux,uboot" fdt="device_trees/rk3566-eltay-rm66-bb-cm4.dtb" fdt_type="fdt">
+      <file>rk3566-eltay-rm66-bb-cm4</file>
+    </Eltay_RM66>
   </RK3566>
   <RK3576 mkimage_options="dtb,extlinux,uboot" fdt="device_trees/rk3576-anbernic-rg-vita-pro.dtb" fdt_type="fdt" dtb_prefix="rockchip">
     <file>rk3576-anbernic-rg-vita-pro</file>
