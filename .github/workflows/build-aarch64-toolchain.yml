@@ -105,14 +105,17 @@ jobs:
           tar --remove-files -cf ccache-aarch64-${{ inputs.DEVICE }}-toolchain.tar ./build.ROCKNIX-${{ inputs.DEVICE }}.aarch64/.ccache  
 
       - name: Save ccache
+        if: env.CCACHE_RELEASE_TOKEN != ''
         uses: softprops/action-gh-release@v3
+        env:
+          CCACHE_RELEASE_TOKEN: ${{ secrets.GH_PAT }}
         with:
           tag_name: ccache
           files: ccache-aarch64-${{ inputs.DEVICE }}-toolchain.tar
           make_latest: true
           prerelease: true
           body: ccache
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ env.CCACHE_RELEASE_TOKEN }}
           repository: ${{ github.repository_owner }}/${{ vars.CACHE_REPO || 'distribution-cache' }}
         continue-on-error: true
 

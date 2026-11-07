@@ -80,14 +80,17 @@ jobs:
           tar -cf ccache-arm-${{ inputs.DEVICE }}.tar ./build.ROCKNIX-${{ inputs.DEVICE }}.arm/.ccache  
 
       - name: save ccache
+        if: env.CCACHE_RELEASE_TOKEN != ''
         uses: softprops/action-gh-release@v3
+        env:
+          CCACHE_RELEASE_TOKEN: ${{ secrets.GH_PAT }}
         with:
           tag_name: ccache
           files: ccache-arm-${{ inputs.DEVICE }}.tar
           make_latest: true
           prerelease: true
           body: cache
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ env.CCACHE_RELEASE_TOKEN }}
           repository: ${{ github.repository_owner }}/${{ vars.CACHE_REPO || 'distribution-cache' }}
         continue-on-error: true
 

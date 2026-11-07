@@ -4,7 +4,7 @@ diff --git a/configs/eltay-rm66-rk3566_defconfig b/configs/eltay-rm66-rk3566_def
 new file mode 100644
 --- /dev/null
 +++ b/configs/eltay-rm66-rk3566_defconfig
-@@ -0,0 +1,100 @@
+@@ -0,0 +1,101 @@
 +CONFIG_ARM=y
 +CONFIG_SKIP_LOWLEVEL_INIT=y
 +CONFIG_COUNTER_FREQUENCY=24000000
@@ -105,6 +105,7 @@ new file mode 100644
 +CONFIG_USB_DWC3=y
 +CONFIG_USB_DWC3_GENERIC=y
 +CONFIG_ERRNO_STR=y
++# CONFIG_TOOLS_MKEFICAPSULE is not set
 diff --git a/arch/arm/dts/rk3566-eltay-rm66-u-boot.dtsi b/arch/arm/dts/rk3566-eltay-rm66-u-boot.dtsi
 new file mode 100644
 --- /dev/null
