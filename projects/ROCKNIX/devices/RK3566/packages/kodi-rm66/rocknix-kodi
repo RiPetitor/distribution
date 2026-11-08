@@ -1,0 +1,15 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+set -eu
+
+export HOME=/storage
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/0-runtime-dir}"
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-1}"
+
+settings="${HOME}/.kodi/userdata/guisettings.xml"
+if [ ! -e "${settings}" ]; then
+  install -Dm0644 /usr/share/kodi/config/guisettings.xml "${settings}"
+fi
+
+exec /usr/lib/kodi/kodi.bin --standalone -fs --audio-backend=pipewire

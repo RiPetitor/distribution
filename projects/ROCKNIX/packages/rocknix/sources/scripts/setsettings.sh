@@ -358,6 +358,8 @@ function configure_hotkeys() {
         MY_CONTROLLER=$(grep -b4 joypad /proc/bus/input/devices | awk 'BEGIN {FS="\""}; /Name/ {printf $2}')
     fi
 
+    MY_CONTROLLER=${MY_CONTROLLER//\//_}
+
     ### Remove any input settings retroarch may have added.
     sed -i '/input_player[0-9]/d' ${RETROARCH_CONFIG}
 

@@ -1,0 +1,15 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-2.0
+
+set -eu
+
+firmware=/run/kernel-overlays/firmware/brcm
+for extension in bin txt clm_blob; do
+  source="brcmfmac43456-sdio.${extension}"
+  board="brcmfmac43456-sdio.elron,eltay-rm66-bb-cm4.${extension}"
+  if [ -r "${firmware}/${source}" ] && [ ! -e "${firmware}/${board}" ] && [ ! -L "${firmware}/${board}" ]; then
+    ln -s "${source}" "${firmware}/${board}"
+  fi
+done
+
+modprobe -a motorcomm brcmfmac-wcc

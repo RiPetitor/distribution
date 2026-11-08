@@ -56,6 +56,10 @@ else
   # Sound support
   [ "${PIPEWIRE_SUPPORT}" = "yes" ] && PKG_DEPENDS_TARGET+=" alsa pulseaudio pipewire wireplumber"
 
+  if [ "${DEVICE}" = "RK3566" ] && [ "${TARGET_ARCH}" = "aarch64" ] && [ "${ROCKNIX_RM66_MEDIA}" = "yes" ]; then
+    PKG_DEPENDS_TARGET+=" kodi-rm66"
+  fi
+
 fi
 
 # Device is an emulation focused device

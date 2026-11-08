@@ -1,0 +1,28 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-2.0
+
+set -e
+
+. /etc/profile.d/001-functions
+. /storage/.config/profile.d/001-device_config
+
+launcher="/storage/.config/modules/Медиацентр Kodi.sh"
+if [ "${DEVICE_RM66_MEDIA}" = "true" ] && [ ! -e "${launcher}" ] && [ ! -L "${launcher}" ]; then
+  mkdir -p /storage/.config/modules
+  ln -s /usr/bin/rocknix-kodi "${launcher}"
+fi
+
+first_boot=/storage/.config/eltay-rm66-first-boot
+[ -f "${first_boot}" ] || exit 0
+
+set_setting system.language ru_RU
+set_setting global.controller_layout xbox
+set_setting wifi.enabled 1
+
+retroarch=/storage/.config/retroarch/retroarch.cfg
+if [ -f "${retroarch}" ]; then
+  sed -i -e 's/^user_language = "0"$/user_language = "9"/' \
+         -e 's/^menu_swap_ok_cancel_buttons = "false"$/menu_swap_ok_cancel_buttons = "true"/' "${retroarch}"
+fi
+
+rm "${first_boot}"

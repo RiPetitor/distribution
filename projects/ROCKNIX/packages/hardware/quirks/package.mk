@@ -25,6 +25,7 @@ post_install() {
   if [ "${DEVICE}" = "RK3566" ]
   then
     enable_service volume-fixup.service
+    enable_service eltay-rm66-network.service
   fi
   if [ "${DEVICE}" = "SM6115" ]
   then

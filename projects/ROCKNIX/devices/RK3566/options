@@ -61,6 +61,15 @@
   # Pipewire audio support (yes / no)
     PIPEWIRE_SUPPORT="yes"
 
+  # Media center for the RM66 image
+    ROCKNIX_RM66_MEDIA="${ROCKNIX_RM66_MEDIA:-yes}"
+    if [ "${TARGET_ARCH}" = "aarch64" ] && [ "${ROCKNIX_RM66_MEDIA}" = "yes" ]; then
+      MEDIACENTER="kodi"
+      KODI_PIPEWIRE_SUPPORT="yes"
+      KODI_NFS_SUPPORT="yes"
+      KODI_SAMBA_SUPPORT="yes"
+    fi
+
   # Additional drivers to install:
   # for a list of additional drivers see packages/linux-drivers
   # Space separated list is supported,
