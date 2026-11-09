@@ -6,7 +6,7 @@ ENV{installer}=="1", GOTO="exit"
 SUBSYSTEM!="block", KERNEL!="sd*|sr*", GOTO="exit"
 
 # only allow USB-attached devices
-ENV{ID_USB_DRIVER}!="usb-storage", GOTO="exit"
+ENV{ID_USB_DRIVER}!="usb-storage|uas", GOTO="exit"
 
 # check for special partitions we dont want mount
 IMPORT{builtin}="blkid"
