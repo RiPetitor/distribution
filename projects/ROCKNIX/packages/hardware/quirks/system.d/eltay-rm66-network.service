@@ -1,0 +1,14 @@
+[Unit]
+Description=Initialize ELTAY RM66 network hardware
+ConditionFirmware=device-tree-compatible(elron,eltay-rm66-bb-cm4)
+DefaultDependencies=no
+Before=systemd-udev-trigger.service sysinit.target shutdown.target
+Conflicts=shutdown.target
+
+[Service]
+Type=oneshot
+ExecStart="/usr/lib/autostart/quirks/devices/ELTAY RM66 on ELTAY BB CM4/boot/network"
+RemainAfterExit=yes
+
+[Install]
+WantedBy=sysinit.target

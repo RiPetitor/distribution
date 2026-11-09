@@ -1,0 +1,6 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-2.0
+
+cat <<EOF >/storage/.config/profile.d/002-audio_path
+ALSA_PRIMARY_CARD="RK809"
+EOF

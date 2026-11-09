@@ -42,6 +42,11 @@ _wp_profile_index() {
 }
 
 _switch_audio() {
+    if [ "${DEVICE_HDMI_SEPARATE_AUDIO_CARD}" = "true" ]; then
+        /usr/bin/hdmi_sense 2>/dev/null
+        return 0
+    fi
+
     local card target i
     card=$(_wp_audio_card); [ -n "$card" ] || return 0
     if [ "$1" = "external" ]; then
