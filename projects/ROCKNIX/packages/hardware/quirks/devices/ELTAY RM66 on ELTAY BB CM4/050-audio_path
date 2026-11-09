@@ -3,4 +3,5 @@
 
 cat <<EOF >/storage/.config/profile.d/002-audio_path
 ALSA_PRIMARY_CARD="RK809"
+DEVICE_PREFER_USB_AUDIO="true"
 EOF

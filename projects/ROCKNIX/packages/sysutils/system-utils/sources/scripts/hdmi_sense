@@ -28,6 +28,11 @@ do
   esac
 done
 
+if [ "${DEVICE_PREFER_USB_AUDIO}" = "true" ]; then
+  USB_SINK=$(pactl list short sinks | awk '$2 ~ /^alsa_output[.]usb-/ {print $2; exit}')
+  DEFAULT_SINK="${USB_SINK:-${DEFAULT_SINK}}"
+fi
+
 if [ -z "${DEFAULT_SINK}" ]
 then
   DEFAULT_ID=$(pactl list short cards | awk '! /hdmi/ {print $1; exit}')
