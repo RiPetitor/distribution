@@ -7,13 +7,15 @@ PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="https://kodi.tv"
 PKG_URL="https://mirrors.kodi.tv/addons/piers/resource.language.ru_ru/resource.language.ru_ru-${PKG_VERSION}.zip"
 PKG_SOURCE_DIR="resource.language.ru_ru"
-PKG_DEPENDS_TARGET="toolchain kodi peripheral.joystick rocknix"
+PKG_DEPENDS_TARGET="toolchain kodi kodi-theme-Estuary peripheral.joystick rocknix"
 PKG_ARCH="aarch64"
 PKG_TOOLCHAIN="manual"
 PKG_LONGDESC="Kodi integration and Russian language for ELTAY RM66"
 
 makeinstall_target() {
-  install -Dm0755 "${PKG_DIR}/rocknix-kodi" "${INSTALL}/usr/bin/rocknix-kodi"
+  install -Dm0755 "${PKG_DIR}/rocknix-kodi" "${INSTALL}/usr/config/modules/Медиацентр Kodi.sh"
+  mkdir -p "${INSTALL}/usr/bin"
+  ln -s '/usr/config/modules/Медиацентр Kodi.sh' "${INSTALL}/usr/bin/rocknix-kodi"
   local addon="${INSTALL}/usr/share/kodi/addons/resource.language.ru_ru"
   mkdir -p "${addon}"
   cp -a addon.xml icon.png resources "${addon}/"
@@ -26,6 +28,7 @@ post_install() {
   ln -sfn rocknix.target "${units}/default.target"
   find "${units}" -type l -lname '../kodi*.service' -delete
   ln -sfn /etc/ssl/certs/ca-certificates.crt "${INSTALL}/usr/share/kodi/system/certs/cacert.pem"
+  safe_remove "${INSTALL}/usr/share/kodi/addons/repository.libreelec.tv"
   xmlstarlet ed -L \
     -d '/addons/addon[text()="peripheral.joystick"]/@optional' \
     -d '/addons/addon[text()="repository.libreelec.tv"]' \
