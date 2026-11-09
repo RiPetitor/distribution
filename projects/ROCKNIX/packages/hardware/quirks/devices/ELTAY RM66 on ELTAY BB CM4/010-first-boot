@@ -11,6 +11,15 @@ first_boot=/storage/.config/eltay-rm66-first-boot
 set_setting global.controller_layout xbox
 set_setting wifi.enabled 1
 
+if [ -z "$(get_setting gpu.driver)" ]; then
+  set_setting gpu.driver panfrost
+fi
+
+es_settings=/storage/.config/emulationstation/es_settings.cfg
+if [ -f "${es_settings}" ] && ! grep -q 'name="HiddenSystems"' "${es_settings}"; then
+  sed -i '/^[[:space:]]*<\/config>[[:space:]]*$/i\  <string name="HiddenSystems" value="3ds;gamecube;ps2;ps3;psvita;switch;wii;wiiu;xbox;xbox360" />' "${es_settings}"
+fi
+
 retroarch=/storage/.config/retroarch/retroarch.cfg
 if [ -f "${retroarch}" ]; then
   sed -i -e 's/^user_language = "0"$/user_language = "9"/' \
